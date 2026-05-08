@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Maritime Loan Default Predictor</title>
+<link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-icon">⚓</div>
+    Maritime Risk AI
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('predict',this)">Predict</button>
+    <button class="nav-tab" onclick="showPage('dataset',this)">Dataset</button>
+    <button class="nav-tab" onclick="showPage('tda',this)">TDA Metrics</button>
+    <button class="nav-tab" onclick="showPage('about',this)">About</button>
+  </div>
+</nav>
+
+<!-- =================== PREDICT PAGE =================== -->
+<div id="page-predict" class="page active">
+  <div class="hero">
+    <div class="hero-badge">⚡ Hybrid TDA + Machine Learning Framework</div>
+    <h1>Maritime Loan Default Prediction</h1>
+    <p>Enter shipping company details to predict loan default risk using Topological Data Analysis combined with four Machine Learning classifiers as described in our IEEE paper.</p>
+  </div>
+
+  <div class="stats-row" id="stats-row">
+    <div class="stat-card"><div class="stat-value" id="s-total">150</div><div class="stat-label">Training Records</div></div>
+    <div class="stat-card"><div class="stat-value" id="s-acc">0.9000</div><div class="stat-label">XGBoost Accuracy</div></div>
+    <div class="stat-card"><div class="stat-value">13</div><div class="stat-label">Input Features</div></div>
+    <div class="stat-card"><div class="stat-value">4</div><div class="stat-label">ML Models</div></div>
+  </div>
+
+  <div class="main-layout">
+    <!-- FORM -->
+    <div class="form-card">
+      <div class="form-header">
+        <div class="dot"></div>
+        <h2>Company and Loan Details</h2>
+      </div>
+      <div class="form-body">
+
+        <div class="section-label">Loan Term</div>
+        <div class="fields-grid">
+          <div class="field">
+            <label>Loan Amount (USD) <span id="v-Amount">105M</span></label>
+            <input type="range" id="Amount" min="8331068" max="199954700" value="105286181" step="1000000" oninput="fmtM('Amount','v-Amount')"/>
+          </div>
+          <div class="field">
+            <label>Tenor (Years) <span id="v-Tenor">9</span></label>
+            <input type="range" id="Tenor" min="3" max="14" value="9" step="1" oninput="fmtN('Tenor','v-Tenor')"/>
+          </div>
+          <div class="field">
+            <label>Balloon Payment</label>
+            <div class="toggle-group">
+              <div class="toggle-btn active" id="Balloon-0" onclick="setTog('Balloon',0)">No (0)</div>
+              <div class="toggle-btn" id="Balloon-1" onclick="setTog('Balloon',1)">Yes (1)</div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Finance Type</label>
+            <div class="toggle-group">
+              <div class="toggle-btn active" id="Finance-0" onclick="setTog('Finance',0)">Type 0</div>
+              <div class="toggle-btn" id="Finance-1" onclick="setTog('Finance',1)">Type 1</div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Spread (%) <span id="v-Spread">2.92</span></label>
+            <input type="range" id="Spread" min="0.55" max="5.46" value="2.92" step="0.01" oninput="fmtF('Spread','v-Spread')"/>
+          </div>
+        </div>
+
+        <div class="section-label">Financial Strength</div>
+        <div class="fields-grid">
+          <div class="field">
+            <label>MVC — Collateral Value <span id="v-MVC">131M</span></label>
+            <input type="range" id="MVC" min="11983509" max="249216892" value="131152760" step="1000000" oninput="fmtM('MVC','v-MVC')"/>
+          </div>
+          <div class="field">
+            <label>ACR — Annual Repair Cost <span id="v-ACR">6.06</span></label>
+            <input type="range" id="ACR" min="2.61" max="9.47" value="6.06" step="0.01" oninput="fmtF('ACR','v-ACR')"/>
+          </div>
+          <div class="field">
+            <label>Leverage (Debt/Equity) <span id="v-Leverage">0.53</span></label>
+            <input type="range" id="Leverage" min="0.11" max="0.90" value="0.53" step="0.01" oninput="fmtF('Leverage','v-Leverage')"/>
+          </div>
+        </div>
+
+        <div class="section-label">Vessel Operation</div>
+        <div class="fields-grid">
+          <div class="field">
+            <label>DWT — Cargo Capacity <span id="v-DWT">115K</span></label>
+            <input type="range" id="DWT" min="20846" max="194293" value="114596" step="1000" oninput="fmtK('DWT','v-DWT')"/>
+          </div>
+          <div class="field">
+            <label>Vessel Age (Years) <span id="v-Age">11</span></label>
+            <input type="range" id="Age" min="1" max="24" value="11" step="1" oninput="fmtN('Age','v-Age')"/>
+          </div>
+          <div class="field">
+            <label>Fleet Size (Ships) <span id="v-Fleet_Size">27</span></label>
+            <input type="range" id="Fleet_Size" min="1" max="49" value="27" step="1" oninput="fmtN('Fleet_Size','v-Fleet_Size')"/>
+          </div>
+          <div class="field">
+            <label>Experience (Years) <span id="v-Experience">20</span></label>
+            <input type="range" id="Experience" min="1" max="39" value="20" step="1" oninput="fmtN('Experience','v-Experience')"/>
+          </div>
+        </div>
+
+        <div class="section-label">Market Condition</div>
+        <div class="fields-grid">
+          <div class="field">
+            <label>BDI — Baltic Dry Index <span id="v-BDI">2696</span></label>
+            <input type="range" id="BDI" min="501" max="4973" value="2696" step="1" oninput="fmtN('BDI','v-BDI')"/>
+          </div>
+        </div>
+
+        <button class="predict-btn" onclick="runPrediction()">⚡ Run Prediction</button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="result-panel">
+
+      <div class="result-card">
+        <div class="result-header">Prediction Result</div>
+        <div id="pred-display" class="prediction-display">
+          <div class="pred-icon pending">?</div>
+          <div class="pred-label pending">Awaiting Input</div>
+          <div class="pred-sub">Fill in the form and click Run Prediction</div>
+        </div>
+        <div class="result-body" style="padding-top:0">
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>Default Risk</span><span id="prob-pct">—</span></div>
+            <div class="prob-bar"><div class="prob-fill red" id="bar-d" style="width:0%"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>Safe Score</span><span id="safe-pct">—</span></div>
+            <div class="prob-bar"><div class="prob-fill green" id="bar-s" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-header">Model Comparison</div>
+        <div class="result-body">
+          <div id="model-scores"><div class="empty-state"><div class="icon">📊</div><p>Run prediction to see model results</p></div></div>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-header">Feature Influence (Pearson-Based)</div>
+        <div class="result-body">
+          <div id="feat-bars"><div class="empty-state"><div class="icon">📈</div><p>Run prediction to see feature influence</p></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =================== DATASET PAGE =================== -->
+<div id="page-dataset" class="page">
+  <div class="dataset-container">
+    <div class="dataset-header">
+      <h2>Maritime Loan Dataset</h2>
+      <span class="muted">150 records · 13 features · 1 target</span>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterData('all',this)">All (150)</button>
+      <button class="filter-btn" onclick="filterData(1,this)">Default (77)</button>
+      <button class="filter-btn" onclick="filterData(0,this)">Non-Default (73)</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Amount</th><th>Tenor</th><th>MVC</th><th>ACR</th>
+          <th>Balloon</th><th>Finance</th><th>DWT</th><th>Age</th>
+          <th>Exp</th><th>Fleet</th><th>Leverage</th><th>BDI</th>
+          <th>Spread</th><th>Status</th>
+        </tr></thead>
+        <tbody id="dataset-body"><tr><td colspan="15" style="text-align:center;padding:30px;color:var(--muted)">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- =================== TDA PAGE =================== -->
+<div id="page-tda" class="page">
+  <div class="dataset-container">
+    <div class="dataset-header">
+      <h2>TDA Network Metrics</h2>
+      <span class="muted">Topological features extracted from correlation network</span>
+    </div>
+    <div class="tda-grid" id="tda-grid">
+      <div class="empty-state"><p>Loading TDA metrics...</p></div>
+    </div>
+    <div class="result-card" style="margin-top:20px">
+      <div class="result-header">Pearson Correlation with Default Target</div>
+      <div class="result-body">
+        <div id="pearson-bars"><div class="empty-state"><p>Loading...</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== ABOUT PAGE =================== -->
+<div id="page-about" class="page">
+  <div class="about-container">
+    <h2 style="font-size:22px;font-weight:600;margin-bottom:8px">About This Project</h2>
+    <p class="muted" style="margin-bottom:24px;font-size:14px;line-height:1.7">This system implements the Hybrid TDA + Machine Learning framework proposed in our IEEE Xplore paper for maritime loan default prediction.</p>
+
+    <div class="about-grid">
+      <div class="about-card"><h3>Research Problem</h3><p>Traditional credit risk models evaluate shipping companies in isolation, missing interconnected network effects that drive systemic default risk in maritime finance.</p></div>
+      <div class="about-card"><h3>Proposed Solution</h3><p>A hybrid framework combining Topological Data Analysis for network feature extraction with four machine learning classifiers for accurate binary default prediction.</p></div>
+      <div class="about-card"><h3>Dataset</h3><p>150 maritime shipping company records with 13 financial and operational features across loan terms, vessel operations, and market conditions.</p></div>
+      <div class="about-card"><h3>Best Model</h3><p>XGBoost achieves the highest performance: Accuracy 0.9000, Precision 0.9412, Recall 0.8889, F1-Score 0.9143.</p></div>
+    </div>
+
+    <div class="result-card" style="margin-bottom:20px">
+      <div class="result-header">Framework Pipeline</div>
+      <div class="result-body">
+        <div class="pipeline-steps">
+          <div class="pipeline-step"><div class="step-num">1</div><div class="step-content"><h4>Raw Dataset</h4><p>150 maritime shipping company records with financial, operational, and market features.</p></div></div>
+          <div class="pipeline-step"><div class="step-num">2</div><div class="step-content"><h4>Correlation Network Construction</h4><p>Companies modeled as nodes. Pearson correlation creates weighted edges forming an inter-company network graph.</p></div></div>
+          <div class="pipeline-step"><div class="step-num">3</div><div class="step-content"><h4>TDA Network Metrics</h4><p>Four topological metrics extracted: Degree Centrality, Betweenness Centrality, Clustering Coefficient, and PageRank.</p></div></div>
+          <div class="pipeline-step"><div class="step-num">4</div><div class="step-content"><h4>Pearson Feature Selection</h4><p>Features ranked by linear correlation strength with the Default target variable.</p></div></div>
+          <div class="pipeline-step"><div class="step-num">5</div><div class="step-content"><h4>ML Classification</h4><p>Four classifiers trained: Logistic Regression, Decision Tree, Random Forest, and XGBoost.</p></div></div>
+          <div class="pipeline-step"><div class="step-num">6</div><div class="step-content"><h4>Default / Non-Default Output</h4><p>Binary classification — Default (1) when company fails to repay, Non-Default (0) when loan is repaid.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-header">Model Performance (IEEE Paper Results)</div>
+      <div class="result-body">
+        <table class="metrics-table">
+          <thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-Score</th></tr></thead>
+          <tbody>
+            <tr><td>Logistic Regression</td><td>0.8667</td><td>0.8182</td><td>1.0000</td><td>0.9000</td></tr>
+            <tr><td>Decision Tree</td><td>0.7333</td><td>0.7273</td><td>0.8889</td><td>0.8000</td></tr>
+            <tr><td>Random Forest</td><td>0.8667</td><td>0.9375</td><td>0.8333</td><td>0.8824</td></tr>
+            <tr><td style="color:var(--accent2);font-weight:600">XGBoost ★</td><td class="best">0.9000</td><td class="best">0.9412</td><td>0.8889</td><td class="best">0.9143</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
