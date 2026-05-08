@@ -85,12 +85,4 @@ Go to: **http://127.0.0.1:5000**
 | Vessel Operation | DWT, Age, Fleet_Size, Experience |
 | Market Condition | BDI |
 
----
 
-## Paper Results (IEEE)
-| Model | Accuracy | Precision | Recall | F1-Score |
-|---|---|---|---|---|
-| Logistic Regression | 0.8667 | 0.8182 | 1.0000 | 0.9000 |
-| Decision Tree | 0.7333 | 0.7273 | 0.8889 | 0.8000 |
-| Random Forest | 0.8667 | 0.9375 | 0.8333 | 0.8824 |
-| **XGBoost** | **0.9000** | **0.9412** | 0.8889 | **0.9143** |
