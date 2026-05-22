@@ -1,5 +1,5 @@
 # Maritime Loan Default Prediction System
-### Hybrid TDA + Machine Learning Framework (IEEE Paper Implementation)
+### Hybrid TDA + Machine Learning Framework 
 
 ---
 
