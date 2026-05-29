@@ -1,87 +1,223 @@
-# Maritime Loan Default Prediction System
-### Hybrid TDA + Machine Learning Framework 
+# 🚢 Maritime Loan Default Prediction System
+
+A hybrid **Topological Data Analysis (TDA) + Machine Learning** framework designed to predict maritime loan defaults using vessel characteristics, financial indicators, and market conditions. This project combines traditional machine learning techniques with network-based topological analysis to improve risk assessment and decision-making in maritime finance.
 
 ---
 
-## Project Structure
+## 📌 Overview
 
-```
+Maritime lending involves significant financial risk due to fluctuating market conditions, vessel depreciation, and operational uncertainties. This system provides an intelligent approach to assessing loan default risk by integrating:
+
+* Machine Learning prediction models
+* Topological Data Analysis (TDA)
+* Financial and vessel performance indicators
+* Interactive web-based dashboard
+
+The application allows users to predict loan default probability, explore datasets, analyze network metrics, and understand the underlying prediction framework.
+
+---
+
+## ✨ Features
+
+### 🔍 Loan Default Prediction
+
+* Enter maritime company and vessel details
+* Generate real-time default risk predictions
+* Compare outputs across multiple ML models
+
+### 📊 Dataset Explorer
+
+* Browse all loan records
+* Search and filter dataset entries
+* View maritime financial indicators
+
+### 🌐 TDA Metrics Dashboard
+
+Analyze network-based relationships using:
+
+* Degree Centrality
+* Betweenness Centrality
+* Clustering Coefficient
+* PageRank
+* Pearson Correlation Analysis
+
+### 📖 Framework Insights
+
+* Model architecture overview
+* End-to-end prediction pipeline
+* Performance comparison based on research findings
+
+---
+
+## 🧠 Machine Learning Models
+
+The system implements multiple predictive models:
+
+| Model               | Purpose                         |
+| ------------------- | ------------------------------- |
+| Logistic Regression | Baseline classification         |
+| Decision Tree       | Rule-based prediction           |
+| Random Forest       | Ensemble learning               |
+| XGBoost (Simulated) | High-performance boosting model |
+
+---
+
+## 🌐 Topological Data Analysis (TDA)
+
+To capture hidden relationships within maritime loan data, the framework utilizes network analysis techniques including:
+
+* Degree Centrality
+* Betweenness Centrality
+* Clustering Coefficient
+* PageRank
+* Correlation Networks
+
+These metrics provide additional structural insights beyond traditional machine learning features.
+
+---
+
+## 📂 Project Structure
+
+```text
 maritime_project/
-├── app.py                        ← Flask backend (ML models + TDA)
-├── maritime_loan_dataset.csv     ← Dataset (150 records, 13 features)
-├── requirements.txt              ← Python dependencies
-├── README.md                     ← This file
+│
+├── app.py
+├── maritime_loan_dataset.csv
+├── requirements.txt
+├── README.md
+│
 ├── templates/
-│   └── index.html                ← Main HTML page
+│   └── index.html
+│
 └── static/
     ├── css/
-    │   └── style.css             ← Styling
+    │   └── style.css
+    │
     └── js/
-        └── main.js               ← Frontend logic
+        └── main.js
 ```
 
 ---
 
-## Setup Instructions
+## 📋 Dataset Features
 
-### Step 1 — Install Python (if not installed)
-Download from: https://www.python.org/downloads/
-Make sure to check "Add Python to PATH" during installation.
+### Loan Characteristics
 
-### Step 2 — Open VS Code
-Open the `maritime_project` folder in VS Code:
-```
-File → Open Folder → Select maritime_project
+* Loan Amount
+* Loan Tenor
+* Balloon Payment
+* Finance Percentage
+* Loan Spread
+
+### Financial Strength Indicators
+
+* MVC
+* ACR
+* Leverage Ratio
+
+### Vessel & Operational Metrics
+
+* Deadweight Tonnage (DWT)
+* Vessel Age
+* Fleet Size
+* Company Experience
+
+### Market Conditions
+
+* Baltic Dry Index (BDI)
+
+---
+
+## ⚙️ Installation
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/maritime-loan-default-prediction.git
+cd maritime-loan-default-prediction
 ```
 
-### Step 3 — Open Terminal in VS Code
-```
-Terminal → New Terminal
+### 2️⃣ Create Virtual Environment (Optional)
+
+```bash
+python -m venv venv
 ```
 
-### Step 4 — Install Dependencies
+Activate environment:
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+### 3️⃣ Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 5 — Run the Application
+### 4️⃣ Run the Application
+
 ```bash
 python app.py
 ```
 
-### Step 6 — Open in Browser
-Go to: **http://127.0.0.1:5000**
+### 5️⃣ Open in Browser
+
+```text
+http://127.0.0.1:5000
+```
 
 ---
 
-## Features
+## 🚀 Technology Stack
 
-| Page | Description |
-|---|---|
-| **Predict** | Enter company details and get loan default prediction |
-| **Dataset** | Browse all 150 records with filtering |
-| **TDA Metrics** | View topological network metrics and Pearson correlations |
-| **About** | Framework pipeline and model performance from IEEE paper |
+### Backend
+
+* Python
+* Flask
+
+### Data Science & Machine Learning
+
+* Pandas
+* NumPy
+* Scikit-learn
+* NetworkX
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
 
 ---
 
-## ML Models Used
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- XGBoost (simulated based on paper results)
+## 📈 System Workflow
 
-## TDA Network Metrics
-- Degree Centrality
-- Betweenness Centrality
-- Clustering Coefficient
-- PageRank
+1. Load maritime loan dataset
+2. Perform data preprocessing
+3. Generate TDA network structure
+4. Extract topological metrics
+5. Train machine learning models
+6. Predict loan default probability
+7. Display results through interactive dashboard
 
-## Dataset Features (13)
-| Category | Features |
-|---|---|
-| Loan Term | Amount, Tenor, Balloon, Finance, Spread |
-| Financial Strength | MVC, ACR, Leverage |
-| Vessel Operation | DWT, Age, Fleet_Size, Experience |
-| Market Condition | BDI |
+---
+
+## 🎯 Applications
+
+* Maritime Finance Risk Assessment
+* Loan Portfolio Analysis
+* Credit Risk Management
+* Vessel Investment Evaluation
+* Banking Decision Support Systems
+
+
 
